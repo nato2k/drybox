@@ -1,3 +1,6 @@
+# Fork Information
+This fork's purpose is to use the great software developed by ppamidimarri but disable the Arduiono/LED features.  I am only using it for one drybox and the printer enclosure so I do not need the LED indicators.
+
 # Drybox
 These scripts allow you to monitor the temperature and humidity in a set of dryboxes. This code allows you to monitor your dryboxes in a number of ways: 
 * logs the readings to a database
@@ -50,17 +53,18 @@ I use the following hardware for this project:
 
 **Install new packages needed**
 
-1. `sudo apt install python-dev python-pip mariadb-server python-mysqldb nginx php-fpm php-mbstring php-mysql raspberry-ui-mods arduino`
+1. `sudo apt install python-dev python-pip mariadb-server python-mysqldb nginx php-fpm php-mbstring php-mysql raspberry-ui-mods arduino smbus`
 2. `sudo pip install Adafruit_DHT pyserial`
 
 **Set up the database**
 1. Secure the database: `sudo mysql_secure_installation`
-2. `mysql -u root -p`
+2. `sudo mysql -u root -p`
 3. `create database drybox;`
 4. `create user 'sensor'@'localhost' IDENTIFIED BY 'sensorpass'`;
 5. `grant all privileges on drybox.* to 'sensor'@'localhost';`
-6. `mysql -u sensor -p`
-7. `CREATE TABLE readings (
+6. exit mysql
+7. `mysql -u sensor -p`
+8. `CREATE TABLE readings (
   id int(11) NOT NULL AUTO_INCREMENT,
   stamp timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   humidity_1 float DEFAULT NULL,
