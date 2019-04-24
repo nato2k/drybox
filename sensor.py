@@ -17,7 +17,7 @@ import MySQLdb as mysql
 import signal
 
 # DHT22 sensor constants
-DHT22_PINS = [17, 14, 15, 4, 18]
+DHT22_PINS = [27, 14, 15, 4, 18]
 HIGH_HUMIDITY = 20
 
 # Database connection and cursor for logging: database is "drybox" and table is "readings"
@@ -30,7 +30,7 @@ mylcd = i2c_lcd_driver.lcd()
 # Serial settings to talk to Arduino controlling the LEDs
 fil_starts = [20, 34, 48, 62, 75]
 fil_ends = [25, 39, 53, 67, 80]
-ser = serial_driver.serial_device("/dev/ttyUSB0", 57600)
+#ser = serial_driver.serial_device("/dev/ttyUSB0", 57600)
 baseColor = chr(32) + chr(32) + chr(32)
 highHumidityColor = chr(1) + chr(255) + chr(1)
 
@@ -38,7 +38,7 @@ def exit_gracefully(signum, frame):
 	db.close()
 	mylcd.lcd_clear()
 	mylcd.backlight(0)
-	ser.close()
+#	ser.close()
 	exit()
 
 def main():
@@ -118,20 +118,20 @@ def make_serial_message(humi):
 		data += make_filament_color(humi[i])
 	return data
 
-def send_light_colors(humi, temp):
-	message = make_serial_message(humi);
-	print("Sending to Arduino: " + message)
-	ser.sendToArduino(message)
-	time.sleep(1)
-	if ser.inWaiting() > 0:
-		dataRecvd = ser.recvFromArduino()
-
-		if dataRecvd[0] == 0:
-			ser.displayDebug(dataRecvd[1])
-
-		if dataRecvd[0] > 0:
-			ser.displayData(dataRecvd[1])
-			print("Reply Received")
+#def send_light_colors(humi, temp):
+#	message = make_serial_message(humi);
+#	print("Sending to Arduino: " + message)
+#	ser.sendToArduino(message)
+#	time.sleep(1)
+#	if ser.inWaiting() > 0:
+#		dataRecvd = ser.recvFromArduino()
+#
+#		if dataRecvd[0] == 0:
+#			ser.displayDebug(dataRecvd[1])
+#
+#		if dataRecvd[0] > 0:
+#			ser.displayData(dataRecvd[1])
+#			print("Reply Received")
 
 def format_status_line(humi, temp):
 	log_high_humidity(humi, temp)
