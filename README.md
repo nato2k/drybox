@@ -64,7 +64,8 @@ I use the following hardware for this project:
 5. `grant all privileges on drybox.* to 'sensor'@'localhost';`
 6. exit mysql
 7. `mysql -u sensor -p`
-8. `CREATE TABLE readings (
+8. `use drybox;`
+9. `CREATE TABLE readings (
   id int(11) NOT NULL AUTO_INCREMENT,
   stamp timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   humidity_1 float DEFAULT NULL,
