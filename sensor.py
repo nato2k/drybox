@@ -135,7 +135,7 @@ def make_serial_message(humi):
 
 def format_status_line(humi, temp):
 	log_high_humidity(humi, temp)
-	send_light_colors(humi, temp)
+#	send_light_colors(humi, temp)
 	now = datetime.now()
 	return now.strftime("%b %-d, %-I:%M %p").center(20)
 
